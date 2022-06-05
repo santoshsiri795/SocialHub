@@ -1,0 +1,85 @@
+{% include 'header.html'  %}
+
+{% block content %}
+
+{% endblock content %}
+{% load static %}
+
+<div class="theme-layout">
+	<div class="container-fluid pdng0">
+		<div class="row merged">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="land-featurearea">
+					<div class="land-meta">
+						<h1>Socialbook</h1>
+						<p>
+							Socialbook is free to use for as long as you want connect with friends.
+						</p>
+						<div class="friend-logo">
+							<span><img src="{% static 'images/wink.png' %}" alt=""></span>
+						</div>
+						<a href="#" title="" class="folow-me">Follow Us on Facebook,Instagram</a>
+					</div>	
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="login-reg-bg">
+					<div class="log-reg-area sign">
+						<h2 class="log-title">Register</h2>
+							<p>
+								Don’t use Socialbook Try Using Create account? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join now</a>
+							</p>
+							{% for message in messages %}
+							<ul><li style="color: red;">{{message}}</li></ul>
+							{% endfor%}
+						<form method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="form-group">	
+								<input type="text" name="first_name" required="required"/>
+								<label class="control-label" for="input">First Name</label><i class="mtrl-select"></i>
+							  </div>
+							  <div class="form-group">	
+								<input type="text" name="last_name" required="required"/>
+								<label class="control-label" for="input">Last Name</label><i class="mtrl-select"></i>
+							  </div>
+							  <div class="form-group">	
+								<input type="text" name="username" required="required"/>
+								<label class="control-label" for="input">User Name</label><i class="mtrl-select"></i>
+							  </div>
+							  <div class="form-group">	
+								<input type="password" name="password" required="required"/>
+								<label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
+							  </div>
+							  <div class="form-group">	
+								<input type="password" name="password1" required="required"/>
+								<label class="control-label" for="input">Confirm Password</label><i class="mtrl-select"></i>
+							  </div>
+							  
+							  <div class="form-group">	
+								<input type="text" name="email" required="required"/>
+								<label class="control-label" for="input">Email</label><i class="mtrl-select"></i>
+							  </div>
+							  <div class="checkbox">
+								<label>
+								  <input type="checkbox" checked="checked"/><i class="check-box"></i>Accept Terms & Conditions ?
+								</label>
+							  </div>
+							  <a href="login" title="" class="already-have">Already have an account</a>
+							  <div class="submit-btns">
+								  <button class="mtr-btn signup" type="submit"><span>Register</span></button>
+							  </div>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	<script data-cfasync="false" src="{% static '../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"></script><script src="js/main.min.js"></script>
+	<script src="{% static 'js/script.js' %}"></script>
+
+</body>	
+
+</html>

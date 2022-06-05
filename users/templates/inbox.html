@@ -1,0 +1,93 @@
+{% include 'header.html'  %}
+
+{% block content %}
+
+{% endblock content %}
+{% load static %}
+
+<section>
+    <div class="feature-photo">
+        <figure><img src="{{user_info.thumbimg.url}}" style="height: 500px;" alt=""></figure>
+        <div class="add-btn">
+            <span>1205 followers</span>
+            <a href="#" title="" data-ripple="">Add Friend</a>
+        </div>
+        
+        <div class="container-fluid">
+            <div class="row merged">
+                <div class="col-lg-2 col-sm-3">
+                    <div class="user-avatar">
+                        <figure>
+                            <img src="{{user_info.profilepic.url}}" alt="">
+                            
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-sm-9">
+                    <div class="timeline-info">
+                        <ul>
+                            <li class="admin-name">
+                              <h5>{{user_info.name}}</h5>
+                              
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- top area -->
+    
+<section>
+    <div class="gap gray-bg">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" id="page-contents">
+                        <div class="col-lg-3">
+                            
+                            
+                        </div><!-- sidebar -->
+                        <div class="col-lg-6">
+                            <div class="central-meta">
+                                <div class="messages">
+                                    <h5 class="f-title"><i class="ti-bell"></i>All Messages ({{msgcount}}) <span class="more-options"><i class="fa fa-ellipsis-h"></i></span></h5>
+                                    <div class="message-box">
+                                        <ul class="peoples" style="width: 100%;">
+                                            {% for msg in inbox %}
+                                            <li>
+                                                
+                                                <figure>
+                                                    <img src="{{ msg.sender.profilepic.url }}" alt="">
+                                                    <span class="status f-online"></span>
+                                                </figure>
+                                                <div class="people-name">
+                                                    <span>{{msg.sender.name}}</span>
+                                                    <span class="unread" style="color: blue; margin-left: 20%;">Unread messages({{msg.sender.all}})</span>
+                                                </div>
+                                                <div >
+                                                   
+                                                </div>
+                                                
+
+                                            </li>
+
+                                            {% endfor %}
+                                            
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
+                            </div>	
+                        </div>
+                        <!-- centerl meta -->
+                        <div class="col-lg-3">
+                            
+                        </div><!-- sidebar -->
+                    </div>	
+                </div>
+            </div>
+        </div>
+    </div>	
+</section>

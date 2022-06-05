@@ -1,0 +1,214 @@
+{% include 'header.html'  %}
+
+{% block content %}
+
+{% endblock content %}
+{% load static %}
+
+	<section>
+		<div class="gap gray-bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row" id="page-contents">
+							<div class="col-lg-3">
+								
+							</div><!-- sidebar -->
+							<div class="col-lg-6">
+								<div class="central-meta">
+									<div class="new-postbox">
+										<figure>
+											<img src="{{user_info.profilepic.url}}" alt="">
+										</figure>
+										<div class="newpst-input">
+											<form method="post" action="upload_post" enctype="multipart/form-data">
+												{% csrf_token %}
+												<textarea rows="2" name="desc" required="required" placeholder="write something"></textarea>
+												<div class="attachments">
+													<ul>
+														<li>
+
+														<li>
+															<i class="fa fa-image"></i>
+															<label class="fileContainer">
+																<input type="file" required="required"  name="post_img ">
+															</label>
+														</li>
+
+														<li>
+															<button type="submit">Post</button>
+														</li>
+													</ul>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div><!-- add post new box -->
+								{% for post in posts%}
+								<div class="loadMore">
+								<div class="central-meta item">
+									<div class="user-post">
+										<div class="friend-info">
+											<figure>
+												<a href="{% url 'profile' post.user.id %}"><img src="{{ post.user.profilepic.url }}" alt=""></a>
+											</figure>
+											<div class="friend-name">
+												<ins><a href="{% url 'profile' post.user.id %}" title="">{{post.user.name}}</a></ins>
+												<span>published: {{post.created_at}}</span>
+											</div>
+											<div class="description">
+													
+												<p>{{post.desc}}</p>
+											</div>
+											<div class="post-meta">
+												<img src="{{post.post_img.url}}" alt="">
+												<div class="we-video-info">
+													
+														
+														<form action="{% url 'like_post' %}" method="POST" enctype="multipart/form-data">
+															{% csrf_token %}
+															<input type="hidden" name="post_id" value="{{post.id}}">
+															
+															{% if user not in post.liked.all %}
+														
+															<button type="submit" value="">LIKE</button>
+														{% else %}
+														<button type="submit" value="">UNLIKE</button>
+														{% endif %}
+															
+														</form>
+														
+														
+														
+												
+													<ul>
+														<li>
+															<span class="like" data-toggle="tooltip" title="like">
+																<i class="ti-heart"></i>
+																<ins>{{post.liked.all.count}}</ins>
+															</span>
+														</li>
+														
+														<li>
+															<span class="comment" data-toggle="tooltip" title="Comments">
+																<i class="fa fa-comments-o"></i>
+																<ins>{{post.comment_set.all.count}}</ins>
+															</span>
+														</li>
+														
+													
+													
+													</ul>
+												</div>
+												
+											</div>
+										</div>
+
+
+
+
+
+
+
+										<div class="coment-area">
+											<ul class="we-comet">
+												{% for ct in post.comment_set.all %}
+												<li>
+													<div class="comet-avatar">
+														<img src="{{ct.user.profilepic.url}}" alt="">
+													</div>
+													<div class="we-comment">
+														<div class="coment-head">
+															<h5><a href="{% url 'profile' ct.user.id %}" title="">{{ct.user.name}}</a></h5>
+															<span>1 year ago</span>
+															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+														</div>
+														<p>{{ct.txt}}</p>
+													</div>
+													
+												</li>
+												{% endfor %}
+												<li>
+													<a href="#" title="" class="showmore underline">more comments</a>
+												</li>
+												<li class="post-comment">
+													<div class="comet-avatar">
+														<img src="{{user_info.profilepic.url}}" alt="">
+													</div>
+													<div class="post-comt-box">
+														<form method="post" enctype="multipart/form-data" action="{% url 'comment' post.id %}">
+															{% csrf_token %}
+															<textarea name="txt" required="required" placeholder="Post your comment"></textarea>
+															
+															<button type="submit" style="background:#088dcd;bottom: 14px;">Comment</button>
+														</form>	
+													</div>
+												</li>
+											</ul>
+										</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+									</div>
+								</div>
+								
+								{% endfor %}
+
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										{% if posts.has_previous %}
+									  <li class="page-item">
+										<a class="page-link" href="?page={{ posts.previous_page_number }}" aria-label="Previous">
+										  <span aria-hidden="true">&laquo;</span>
+										 
+										  <span class="sr-only">Previous</span>
+										</a>
+									  </li>
+									  {% endif %}
+									  {% for i in posts.paginator.page_range %}
+									  {% if posts.number == i %}
+									  <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+									  {% else %}
+									  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+									  {% endif %}
+									  {% endfor %}
+									  
+									  
+									  {% if posts.has_next %}
+									  <li class="page-item">
+										<a class="page-link" href="?page={{ posts.next_page_number }}" aria-label="Next">
+										  <span aria-hidden="true">&raquo;</span>
+										  <span class="sr-only">Next</span>
+										</a>
+									  </li>
+									  {% endif %}
+									</ul>
+								  </nav>
+							<div class="col-lg-3">
+								
+							</div><!-- sidebar -->
+						</div>	
+					</div>
+				</div>
+			</div>
+			
+		</div>	
+	</section>
+
+	
+
+</body>	
+
+</html>

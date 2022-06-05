@@ -1,0 +1,15 @@
+Username                                 Password
+
+admin                                	admin                  <- administrator Login
+
+
+rehansemri                              1234
+
+
+Sonam                               	1234
+
+
+sonal                                	1234
+
+	
+Hafiz					1234

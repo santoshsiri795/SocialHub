@@ -1,0 +1,66 @@
+{% include 'header.html'  %}
+
+{% block content %}
+
+{% endblock content %}
+{% load static %}
+
+<div class="theme-layout">
+	<div class="container-fluid pdng0">
+		<div class="row merged">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="land-featurearea">
+					<div class="land-meta">
+						<h1>Socialbook</h1>
+						<p>
+							Socialbook is free to use for as long as you want connect with friends.
+						</p>
+						<div class="friend-logo">
+							<span><img src="{% static 'images/wink.png' %}" alt=""></span>
+						</div>
+						<a href="#" title="" class="folow-me">Follow Us on</a>
+					</div>	
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="login-reg-bg">
+
+					<div class="log-reg-area sign">
+						<h2 class="log-title">Login</h2>
+							<p>
+								Don’t use Socialbook Try Using Create account? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join now</a>
+							</p>
+							{% for message in messages %}
+							<ul><li style="color: red;">{{message}}</li></ul>
+							{% endfor%}
+						<form method="post">
+							{% csrf_token %}
+							<div class="form-group">	
+							  <input type="text" name="username" id="input" required="required"/>
+							  <label class="control-label" for="input">Username</label><i class="mtrl-select"></i>
+							</div>
+							<div class="form-group">	
+							  <input type="password" name="password"  required="required"/>
+							  <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
+							</div>
+							
+							<a href="#" title="" class="forgot-pwd">Forgot Password?</a>
+							<div class="submit-btns">
+								<button class="mtr-btn signin" type="submit"><span>Login</span></button>
+								<button class="mtr-btn signup" ><span><a href="{% url 'register' %}">Register</a> </span></button>
+							</div>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	<script data-cfasync="false" src="{% static '../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"></script><script src="js/main.min.js"></script>
+	<script src="{% static 'js/script.js' %}"></script>
+
+</body>	
+
+</html>

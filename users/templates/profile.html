@@ -1,0 +1,166 @@
+{% include 'header.html'  %}
+
+{% block content %}
+
+{% endblock content %}
+{% load static %}
+
+
+	
+	
+	
+	<section>
+		<div class="feature-photo">
+			<figure><img src="{{user_profile.thumbimg.url}}" alt="" style="height: 500px;"></figure>
+			<div class="add-btn">
+				<span>{{user_profile.friends.all.count}} Friend</span>
+				{% for message in messages %}
+				<ul><li style="color: rgba(236, 223, 223, 0.719);">{{message}}</li></ul>
+				{% endfor%}
+				{% if user_profile.id == user.profile.id %}
+				<a href="{% url 'edit_profile' %}" title="" >Edit Profile</a>
+				{% elif user_profile.user not in user.profile.friends.all %}
+							{% if user in user_profile.friend_request.all %}
+							
+							
+							<form action="{% url 'accept_friend_request' %}" method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+							<input type="hidden" value="{{user_profile.id}}" name="user_id">
+							<input type="hidden" value="{{request.get_full_path}}" name="current_path">
+							<input type="submit" value="Accept Request" >
+							</form>
+							<form action="{% url 'decline_friend_request' %}" method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+							<input type="hidden" value="{{user_profile.id}}" name="user_id">
+							<input type="hidden" value="{{request.get_full_path}}" name="current_path">
+							<input type="submit" value="Decline Request" >
+							</form>
+
+							
+							
+							{% elif user_profile.user in user.profile.friend_request.all %}
+							<form action="{% url 'cancel_friend_request' %}" method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+							<input type="hidden" value="{{user_profile.id}}" name="user_id">
+							<input type="hidden" value="{{request.get_full_path}}" name="current_path">
+							<input type="submit" value="Cancel Request" >
+							</form>
+							
+							{% else %}
+				<form action="{% url 'send_friend_request' %}" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+				<input type="hidden" value="{{user_profile.id}}" name="user_id">
+				<input type="hidden" value="{{request.get_full_path}}" name="current_path">
+				<input type="submit" value="Add Friend" >
+				</form>	
+				{% endif %}
+				{% else %}
+				<form action="{% url 'un_friend' %}" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+				<input type="hidden" value="{{user_profile.id}}" name="user_id">
+				<input type="hidden" value="{{request.get_full_path}}" name="current_path">
+				<input type="submit" value="Unfriend" >
+				</form>
+				
+				{% endif %}
+
+			</div>
+			
+			<div class="container-fluid">
+				<div class="row merged">
+					<div class="col-lg-2 col-sm-3">
+						<div class="user-avatar">
+							<figure>
+								<img src="{{user_profile.profilepic.url}}" alt="">
+								
+							</figure>
+						</div>
+					</div>
+					<div class="col-lg-10 col-sm-9">
+						<div class="timeline-info">
+							<ul>
+								<li class="admin-name">
+								  <h5>{{user_profile.name}}</h5>
+								  
+								</li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><!-- top area -->
+		
+	<section>
+		<div class="gap gray-bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row" id="page-contents">
+							<div class="col-lg-3">
+								
+								
+							</div><!-- sidebar -->
+							<div class="col-lg-6">
+								<div class="central-meta">
+									<div class="about">
+										<div class="personal">
+											<h5 class="f-title"><i class="ti-info-alt"></i> Personal Info</h5>
+											<p>{{user_profile.bio}}</p>
+										</div>
+										<div class="d-flex flex-row mt-2">
+											
+											<div class="tab-content">
+												<div class="tab-pane fade show active" id="basic" >
+													<ul class="basics">
+														
+														<li><i class="ti-user"></i>{{user_profile.name}}</li>
+														
+														
+														<li><i class="ti-map-alt"></i>{{user_profile.city}}</li>
+														
+														<li><i class="ti-mobile"></i>{{user_profile.mobile}}</li>
+														<li><i class="ti-email"></i>{{user_profile.email}}</li>
+														<li><i class="ti-world"></i>www.yoursite.com</li>
+													</ul>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+								</div>	
+							</div><!-- centerl meta -->
+							<div class="col-lg-3">
+								<aside class="sidebar static">
+									
+									
+									<div class="widget friend-list stick-widget">
+										<h4 class="widget-title">Friends</h4>
+										<div id="searchDir"></div>
+										<ul id="people-list" class="friendz-list">
+											{% for friend in user_profile.friends.all %}
+											<li>
+												<figure>
+													<img src="{{friend.profile.profilepic.url}}" alt="">
+													<span class="status f-online"></span>
+												</figure>
+												<div class="friendz-meta">
+													<a href="{% url 'profile' friend.profile.id %}">{{friend.profile.name}}</a>
+													<i>{{friend.profile.user}}</i>
+												</div>
+											</li>
+											{% endfor %}
+										</ul>
+										
+									</div><!-- friends list sidebar -->
+								</aside>
+							</div><!-- sidebar -->
+							
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>	
+	</section>
+{{request.get_full_path}}
